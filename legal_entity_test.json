@@ -1,0 +1,6 @@
+{
+  "name": "Boeing",
+  "inn": 1234,
+  "industry": "aircraft",
+  "parentName": "Aeroplane holdings"
+}
