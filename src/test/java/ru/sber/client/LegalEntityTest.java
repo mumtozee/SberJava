@@ -15,14 +15,26 @@ public class LegalEntityTest {
 
   public LegalEntityTest() throws IOException {
     this.jsonString = Files.readString(Path.of("legal_entity_test.json"));
-    this.client = new LegalEntity(this.jsonString);
+    this.client = (LegalEntity) Client.createClient(this.jsonString);
   }
 
   @Test
-  public void testObjectCreation() {
-    Assertions.assertAll(() -> assertEquals(client.getName(), "Boeing"),
-            () -> assertEquals(client.getIndustry(), "aircraft"),
-            () -> assertEquals(client.getInn(), "1234"),
-            () -> assertEquals(client.getParentName(), "Aeroplane holdings"));
+  public void testNameField() {
+    assertEquals(client.getName(), "Boeing");
+  }
+
+  @Test
+  public void testIndustryField() {
+    assertEquals(client.getIndustry(), "aircraft");
+  }
+
+  @Test
+  public void testInnField() {
+    assertEquals(client.getInn(), 1234);
+  }
+
+  @Test
+  public void testParentNameField() {
+    assertEquals(client.getParentName(), "Aeroplane holdings");
   }
 }

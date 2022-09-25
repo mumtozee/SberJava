@@ -15,14 +15,26 @@ public class HoldingTest {
 
   public HoldingTest() throws IOException {
     this.jsonString = Files.readString(Path.of("holding_test.json"));
-    this.client = new Holding(this.jsonString);
+    this.client = (Holding) Client.createClient(this.jsonString);
   }
 
   @Test
-  public void testObjectCreation() {
-    Assertions.assertAll(() -> assertEquals(client.getName(), "Alphabet"),
-            () -> assertEquals(client.getIndustry(), "software"),
-            () -> assertEquals(client.getInn(), "12345"),
-            () -> assertEquals(client.getAssetCount(), 23));
+  public void testNameField() {
+    assertEquals(client.getName(), "Alphabet");
+  }
+
+  @Test
+  public void testIndustryField() {
+    assertEquals(client.getIndustry(), "software");
+  }
+
+  @Test
+  public void testInnField() {
+    assertEquals(client.getInn(), 12345);
+  }
+
+  @Test
+  public void testMeanAssetCountField() {
+    assertEquals(client.getMeanAssetCount(), 23.34);
   }
 }

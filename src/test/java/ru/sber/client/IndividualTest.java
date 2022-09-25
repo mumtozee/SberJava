@@ -16,14 +16,26 @@ public class IndividualTest {
 
   public IndividualTest() throws IOException {
     this.jsonString = Files.readString(Path.of("indi_test.json"));
-    this.client = new Individual(this.jsonString);
+    this.client = (Individual) Client.createClient(this.jsonString);
   }
 
   @Test
-  public void testObjectCreation() {
-    Assertions.assertAll(() -> assertEquals(client.getName(), "Peter Parker"),
-            () -> assertEquals(client.getIndustry(), "machinery"),
-            () -> assertEquals(client.getInn(), "1657"),
-            () -> assertFalse(client.hasCrimeRecord()));
+  public void testCrimeRecordsField() {
+    assertFalse(client.hasCrimeRecord());
+  }
+
+  @Test
+  public void testInnField() {
+    assertEquals(client.getInn(), 1657);
+  }
+
+  @Test
+  public void testIndustryField() {
+    assertEquals(client.getIndustry(), "machinery");
+  }
+
+  @Test
+  public void testNameField() {
+    assertEquals(client.getName(), "Peter Parker");
   }
 }

@@ -21,17 +21,20 @@ public class ClientTypeTest {
   }
 
   @Test
-  public void testObjectInstance() {
-    type = ClientType.INDIVIDUAL;
-    Client client1 = type.createClient(this.indivJson);
+  public void testIndividualInstance() {
+    Client client1 = Client.createClient(this.indivJson);
     Assertions.assertInstanceOf(Individual.class, client1);
+  }
 
-    type = ClientType.LEGAL_ENTITY;
-    Client client2 = type.createClient(this.legalEntityJson);
-    Assertions.assertInstanceOf(LegalEntity.class, client2);
-
-    type = ClientType.HOLDING;
-    Client client3 = type.createClient(this.holdingJson);
+  @Test
+  public void testHoldingInstance() {
+    Client client3 = Client.createClient(this.holdingJson);
     Assertions.assertInstanceOf(Holding.class, client3);
+  }
+
+  @Test
+  public void testLegalEntityInstance() {
+    Client client2 = Client.createClient(this.legalEntityJson);
+    Assertions.assertInstanceOf(LegalEntity.class, client2);
   }
 }

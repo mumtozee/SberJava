@@ -1,34 +1,19 @@
 package ru.sber.client;
 
 import ru.sber.util.JsonParser;
-import ru.sber.util.Pair;
+import ru.sber.util.JsonKeyValuePair;
 
 import java.util.Objects;
 
 public class Holding extends Client {
-  private final int assetCount;
+  private final double meanAssetCount;
 
-  public Holding(String name, String inn, String industry, int assetCount) {
+  public Holding(String name, long inn, String industry, double meanAssetCount) {
     super(name, inn, industry);
-    this.assetCount = assetCount;
+    this.meanAssetCount = meanAssetCount;
   }
 
-  public Holding(String jsonString) {
-    super(jsonString);
-    JsonParser parser = new JsonParser(jsonString);
-    Pair pair = parser.getNextKeyValue();
-    int assetCountField = -1;
-    while (pair != null) {
-      if (Objects.equals(pair.key, "assetCount")) {
-        assetCountField = Integer.parseInt(pair.value);
-        break;
-      }
-      pair = parser.getNextKeyValue();
-    }
-    this.assetCount = assetCountField;
-  }
-
-  public int getAssetCount() {
-    return assetCount;
+  public double getMeanAssetCount() {
+    return meanAssetCount;
   }
 }

@@ -3,5 +3,5 @@
   "inn": 12345,
   "clientType": "HOLDING",
   "industry": "software",
-  "assetCount": 23
+  "meanAssetCount": 23.34
 }
