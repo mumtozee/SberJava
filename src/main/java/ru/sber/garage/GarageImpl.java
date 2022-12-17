@@ -120,10 +120,10 @@ public class GarageImpl<T extends Vehicle> implements Garage<T> {
   }
 
   @Override
-  public boolean addCars(List<T> cars, List<Owner> owners) {
+  public boolean addCars(List<? extends T> cars, List<Owner> owners) {
     boolean result = true;
     for (int i = 0; i < cars.size(); i++) {
-      result &= addCar(cars.get(i), owners.get(i));
+      result &= addCar((T) cars.get(i), owners.get(i));
     }
     return result;
   }
@@ -134,7 +134,7 @@ public class GarageImpl<T extends Vehicle> implements Garage<T> {
   }
 
   @Override
-  public List<T> removeAll(List<T> cars) {
+  public List<T> removeAll(List<? extends T> cars) {
     List<T> removedCars = new ArrayList<>();
     for (T car : cars) {
       removedCars.add(removeCar(car));
@@ -143,9 +143,9 @@ public class GarageImpl<T extends Vehicle> implements Garage<T> {
   }
 
   @Override
-  public <NewT extends Vehicle> List<NewT> upgradeAllVehiclesWith(
-      VehicleUpgrader<T, NewT> upgrader) {
-    List<NewT> result = new ArrayList<>();
+  public List<? super Vehicle> upgradeAllVehiclesWith(
+      VehicleUpgrader<T, ? extends Vehicle> upgrader) {
+    List<? super Vehicle> result = new ArrayList<>();
     for (T car: idToCar.values()) {
       result.add(upgrader.upgrade(car));
     }
@@ -153,7 +153,7 @@ public class GarageImpl<T extends Vehicle> implements Garage<T> {
   }
 
   @Override
-  public List<T> filterCars(Predicate<T> predicate) {
+  public List<T> filterCars(Predicate<? super T> predicate) {
     List<T> filtered = new ArrayList<>();
     for (T car : idToCar.values()) {
       if (predicate.test(car)) {

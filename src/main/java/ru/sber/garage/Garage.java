@@ -51,14 +51,14 @@ public interface Garage<T extends Vehicle> {
    */
   boolean addCar(T car, Owner owner);
 
-  boolean addCars(List<T> cars, List<Owner> owners);
+  boolean addCars(List<? extends T> cars, List<Owner> owners);
 
   T removeCar(T car);
 
-  List<T> removeAll(List<T> cars);
+  List<T> removeAll(List<? extends T> cars);
 
-  <NewT extends Vehicle> List<NewT> upgradeAllVehiclesWith(
-      VehicleUpgrader<T, NewT> upgrader);
+  List<? super Vehicle> upgradeAllVehiclesWith(
+      VehicleUpgrader<T, ? extends Vehicle> upgrader);
 
-  List<T> filterCars(Predicate<T> predicate);
+  List<T> filterCars(Predicate<? super T> predicate);
 }

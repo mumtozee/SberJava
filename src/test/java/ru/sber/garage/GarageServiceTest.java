@@ -61,7 +61,7 @@ public class GarageServiceTest {
     for (Car car : carList) {
       garage.addCar(car, owner);
     }
-    List<Car> removed = garage.removeAll(carList);
+    List<Car> removed = (List<Car>) garage.removeAll(carList);
     assertNull(garage.allCarsOfOwner(owner));
   }
 
@@ -80,7 +80,7 @@ public class GarageServiceTest {
     for (SportCar car : carList) {
       garage.addCar(car, owner);
     }
-    List<SportCar> filtered = garage.filterCars(engineFilter);
+    List<SportCar> filtered = (List<SportCar>) garage.filterCars(engineFilter);
     boolean result = true;
     for (SportCar car : filtered) {
       result &= car.getEngineVolume() < 1.2f;
@@ -254,7 +254,7 @@ public class GarageServiceTest {
         new Truck(2, "Ferrari", "", 250, 100, 1, (short) 4),
         new Truck(3, "BMW", "", 250, 80, 1, (short) 4)
     );
-    List<Truck> converted = garage.upgradeAllVehiclesWith(new SportCarToTruckUpgrader());
+    List<? super Vehicle> converted = garage.upgradeAllVehiclesWith(new SportCarToTruckUpgrader());
     assertEquals(converted, truckList);
   }
 }
